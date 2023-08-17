@@ -41,7 +41,28 @@ router.use(function (req, res, next) {
 router.get("/", function (req, res) {
   res.status(200).send({ message: "API " + config.NODE_NAME });
 });
+router.get('/productsSale', (req, res) => {
 
+    let query ="SELECT * FROM prodotti  where sale = 1";
+       database.pool.getConnection(function (err, connection){
+         connection.query(query, function (err, rows, flds) {
+           if (err)
+            {
+             err.query = query;
+              res.status(500).send({ message: err });
+           } 
+           else 
+           {
+              res.json(rows);
+              re
+           }
+         });
+         connection.release();
+  
+       });
+      
+    })
+      
 
 
 module.exports.router = router;

@@ -3,8 +3,8 @@ const mysql=require('mysql');
 const pool =mysql.createPool({
     host:'database-2.ctfdpizyhhzy.eu-north-1.rds.amazonaws.com',
     user:'admin',
-    password:'Mouad2001#',
-    database:'ecommerce',
+    password:'mouadetta',
+    database:'ecommercee',
     port: 3306,
     connectionLimit: 100,
     multipleStatements: false
