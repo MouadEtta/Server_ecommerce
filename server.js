@@ -11,12 +11,12 @@ const app = express();
 const attrs = [{ name: 'commonName', value: 'localhost' }];
 const pems = selfsigned.generate(attrs, { days: 365 });
 
-const privateKey = pems.private;
-const certificate = pems.cert;
 
-fs.writeFileSync('nodeamg23.key', privateKey);
-fs.writeFileSync('nodeamgcertificate23.crt', certificate);
 
+const options = {
+  key:fs.readFileSync(path.join(__dirname,'./cert/key.pem')),
+  cert:fs.readFileSync(path.join(__dirname,'./cert/cert.pem'))
+  }
 ////////////////////SERVERS/////////////////////
 
 // HTTPS
@@ -25,7 +25,7 @@ fs.writeFileSync('nodeamgcertificate23.crt', certificate);
 
  // Assumi che il file myCA.crt sia stato generato precedentemente.
 
-var credentials = { key: privateKey, cert: certificate };
+var credentials = { key: options.key, cert: options.cert};
 var port = '16370';
 var portSSL = '16370';
 // CREAZIONE DEL SERVER HTTPS

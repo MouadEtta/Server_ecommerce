@@ -54,7 +54,7 @@ router.get('/productsSale', (req, res) => {
            else 
            {
               res.json(rows);
-              re
+              
            }
          });
          connection.release();
@@ -64,5 +64,28 @@ router.get('/productsSale', (req, res) => {
     })
       
 
-
+  
+      router.post('/productsByCategory', (req, res) => {
+        console.log(req.body.categoria);
+        let query ="SELECT * FROM prodotti WHERE sottocategoria=?";
+           database.pool.getConnection(function (err, connection){
+             connection.query(query,[req.body.categoria], function (err, results) {
+               if (err)
+                {
+                 err.query = query;
+                 console.log(results+" "+query);
+                  res.status(500).send({ message: results });
+               } 
+               else 
+               {
+                res.json(results);
+                  
+               }
+             });
+             connection.release();
+      
+           });
+          
+        })
+        
 module.exports.router = router;
